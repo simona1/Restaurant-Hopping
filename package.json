@@ -1,0 +1,12 @@
+{
+  "name": "restaurants",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "4.16.2",
+    "webpack": "3.10.0"
+  },
+  "scripts": {
+    "build": "webpack --watch",
+    "server": "node src/server/main.js"
+  }
+}
