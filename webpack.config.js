@@ -5,5 +5,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '.'),
     filename: 'out.js',
-  }
+  },
+  module: {
+    loaders: [{loader: 'babel-loader'}],
+  },
 };
