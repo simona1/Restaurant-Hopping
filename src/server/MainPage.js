@@ -19,7 +19,8 @@ class MainPage extends React.Component {
             src={`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(
               GOOGLE_API_KEY,
             )}&libraries=places`}
-            async defer
+            async
+            defer
           />
           <script src="/client.js" />
         </body>
@@ -29,4 +30,3 @@ class MainPage extends React.Component {
 }
 
 export default MainPage;
-

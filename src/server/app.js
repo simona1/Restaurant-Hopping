@@ -34,4 +34,3 @@ app.get('/style.css', function(req, res) {
 });
 
 export default app;
-

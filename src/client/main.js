@@ -5,12 +5,17 @@ import ReactDOM from 'react-dom';
 
 import nullthrows from 'nullthrows';
 
-class Geo extends React.Component {
+type Props = {};
+
+type State = {};
+
+
+export default class Geo extends React.Component<Props, State> {
   render() {
     return (
-        <div>
-         Welcome to Restaurants!!
-        </div>
+      <div>
+        <p>Welcome to Restaurants!!</p>
+      </div>
     );
   }
 }
