@@ -1,5 +1,6 @@
 // @flow
 
+import PlaceForm from './PlaceForm';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -9,12 +10,12 @@ type Props = {};
 
 type State = {};
 
-
 export default class Geo extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <p>Welcome to Restaurants!!</p>
+        <h1>Restaurant Hopping</h1>
+        <PlaceForm />
       </div>
     );
   }

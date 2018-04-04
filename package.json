@@ -16,6 +16,8 @@
     "google-maps-react": "1.1.11",
     "google-places-autocomplete-service": "^0.0.3",
     "lodash": "4.17.5",
+    "material-icons": "0.2.1",
+    "materialize-css": "^1.0.0-beta",
     "nullthrows": "1.0.1",
     "react": "16.3.0",
     "react-dom": "16.3.0",

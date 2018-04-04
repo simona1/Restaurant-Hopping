@@ -1,7 +1,19 @@
 body {
-  font-family: Fantasy, Helvetica;
-  font-size: 30px;
-  text-align: center;
-  color: #9ACD32;
   margin: 50px;
+  text-align: center;
+  background: #F7FFFD;
+}
+
+h1 {
+  color: #4A9586;
+  font-family: Courgette, Fantasy, Helvetica;
+  font-size: 35px;
+}
+
+.input-field .prefix {
+  top: 0.5rem;
+}
+
+#place {
+  width: 300px;
 }

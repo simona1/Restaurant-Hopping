@@ -6,5 +6,5 @@ test('renders welcome message', () => {
   const wrapper = shallow(
      <Geo />
   );
-  expect(wrapper.find('p').text()).toEqual('Welcome to Restaurants!!');
+  expect(wrapper.find('h1').text()).toEqual('Welcome to Restaurants!!');
 });
