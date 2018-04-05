@@ -11,9 +11,9 @@ h1 {
 }
 
 .input-field .prefix {
-  top: 0.5rem;
+  align: center;
 }
 
 #place {
-  width: 300px;
+  width: 400px;
 }

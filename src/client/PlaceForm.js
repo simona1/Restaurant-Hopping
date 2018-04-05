@@ -1,34 +1,47 @@
-// @flow
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+
 import React from 'react';
+import {connect} from 'react-redux';
 
-type Props = {};
+import GOOGLE_API_KEY from '../../api_key';
 
-type State = {
-  value: string,
-};
+import updateLocationQuery from './actions/updateLocationQuery';
 
-class PlaceForm extends React.Component<Props, State> {
-  state = {value: ''};
-
-  _handleChange = (event: Event): void => {
-    event.preventDefault();
-    this.setState({value: event.target.value});
-  };
-
+class PlaceForm extends React.Component<Props> {
   render() {
     return (
-      <form onSubmit={this._handleSubmit} className="input-field">
+      <form className="input-field">
         <i className="material-icons prefix">search</i>
         <input
           type="text"
           id="place"
-          placeholder="pick a place to search for nearby establishments"
-          value={this.state.value}
-          onChange={this._handleChange}
+          placeholder="search for establishments nearby"
+          value={this.props.locationQuery}
+          onChange={this._handleLocationQueryChange}
         />
       </form>
     );
   }
+
+  _handleLocationQueryChange = event => {
+    this.props.onLocationQueryChange(event.target.value);
+  };
 }
 
-export default PlaceForm;
+function mapStateToProps(state) {
+  return {
+    locationQuery: state.locationQuery,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onLocationQueryChange: locationQuery =>
+      dispatch(updateLocationQuery(locationQuery)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceForm);
