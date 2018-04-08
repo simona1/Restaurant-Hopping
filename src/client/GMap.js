@@ -1,31 +1,66 @@
 import React from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {Map, Marker, Polyline} from 'google-maps-react';
 import GOOGLE_API_KEY from '../../api_key';
 import {connect} from 'react-redux';
 import store from './Store';
-import fetchPlaces from './actions/fetchPlaces';
+import mapLoaded from './actions/mapLoaded';
 
-var google = window.google;
+const ZOOM = 14;
 
 class GMap extends React.Component {
-  componentDidMount() {
-    const {latitude: lat, longitude: lng} = this.props.coordinates;
-    store.dispatch(fetchPlaces(lat, lng));
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.coordinates.latitude === prevProps.coordinates.latitude &&
+      this.props.coordinates.longitude === prevProps.coordinates.longitude
+    ) {
+      // The coordinates didn't change, nothing to do.
+      return;
+    }
+
+    console.log('zooming');
+
+    this._map && this._map.setZoom(ZOOM);
   }
 
   render() {
-    const {latitude: lat, longitude: lng} = this.props.coordinates;
+    const {coordinates, places} = this.props;
+    const {latitude: lat, longitude: lng} = coordinates;
+
+    const path = places.map(place => ({
+      lat: place.latitude,
+      lng: place.longitude,
+    }));
+
     return (
-      <React.Fragment>
-        <div id="map" />
-        <Map
-          google={google}
-          zoom={10}
-          center={{lat, lng}}
-          initialCenter={{lat, lng}}>
-          <Marker name="loc" />
-        </Map>
-      </React.Fragment>
+      <Map
+        google={google}
+        onReady={this.props.onMapReady}
+        zoom={ZOOM}
+        center={{lat, lng}}
+        initialCenter={{lat, lng}}>
+        {places.map((place, index) => (
+          <Marker
+            key={place.id}
+            label={String.fromCharCode('A'.charCodeAt(0) + index % 26)}
+            name={place.name}
+            title={place.name}
+            position={{lat: place.latitude, lng: place.longitude}}
+          />
+        ))}
+        {places.length > 0 && (
+          <Polyline
+            key={
+              // There is a bug in the implementation of polyline with responding
+              // to prop updates, this is a hack that forces unmounting/remounting.
+              JSON.stringify(path)
+            }
+            path={path}
+            strokeColor="red"
+            strokeOpacity={0.8}
+            strokeWeight={5}
+          />
+        )}
+      </Map>
     );
   }
 }
@@ -37,10 +72,16 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(
+function mapDispatchToProps(dispatch) {
+  return {
+    onMapReady: (mapProps, map) => dispatch(mapLoaded(map)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
   GMap,
-  GoogleApiWrapper({
+  /*  GoogleApiWrapper({
     apiKey: GOOGLE_API_KEY,
     libraries: ['places'],
-  })(GMap),
+  })(GMap),*/
 );

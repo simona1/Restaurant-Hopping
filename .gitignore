@@ -4,3 +4,5 @@ node_modules
 out.js
 api_key.js
 yarn-error.log
+ubuntu-xenial-16.04-cloudimg-console.log
+.DS_Store
