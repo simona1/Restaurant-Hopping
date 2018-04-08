@@ -17,3 +17,8 @@ h1 {
 #place {
   width: 400px;
 }
+
+#map {
+  height: 100%;
+  width: 440px;
+ }
