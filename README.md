@@ -18,3 +18,15 @@ Run:
 
 In the browser, go to `//localhost:5000`
 and type your preferred location for restaurant hopping in the search text box to see the recommended `open now` restaurants, their ratings and the shortest path itinerary.
+Test with `yarn run test`.
+
+#### TODOs
+`//TODO: add more tests`
+
+`//TODO: add loading indicator`
+
+`//TODO: add links`
+
+`//TODO: add flow`
+
+`//TODO: deploy on heroku`
