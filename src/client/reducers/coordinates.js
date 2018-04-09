@@ -1,6 +1,6 @@
-const uluru = {latitude: -25.363, longitude: 131.044};
+const thecity = {latitude: 37.733795, longitude: -122.446747};
 
-export default function(coordinates = uluru, action) {
+export default function(coordinates = thecity, action) {
   if (action.type === 'UPDATE_COORDINATES') {
     return {
       ...action.coordinates,
