@@ -1,14 +1,14 @@
 import {combineReducers} from 'redux';
+import locationQueryReducer from './locationQuery';
 import coordinatesReducer from './coordinates';
 import locationNameReducer from './locationName';
-import locationQueryReducer from './locationQuery';
 import mapReducer from './map';
-import placesReducer from './placesList';
+import placesReducer from './places';
 
 const rootReducer = combineReducers({
   coordinates: coordinatesReducer,
-  locationName: locationNameReducer,
   locationQuery: locationQueryReducer,
+  locationName: locationNameReducer,
   map: mapReducer,
   places: placesReducer,
 });

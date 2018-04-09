@@ -1,6 +1,8 @@
+// @flow
+
 import GMap from './GMap';
 import PlaceForm from './PlaceForm';
-//import PlacesList from './PlacesList';
+import PlacesList from './PlacesList';
 import React from 'react';
 import {Provider} from 'react-redux';
 
@@ -21,7 +23,7 @@ class Geo extends React.Component<Props> {
               <GMap />
             </div>
             <div style={{flexBasis: '20%'}}>
-              {/*TODO: write this    <PlacesList /> */}
+              <PlacesList />
             </div>
           </div>
         </div>
@@ -31,4 +33,3 @@ class Geo extends React.Component<Props> {
 }
 
 export default Geo;
-

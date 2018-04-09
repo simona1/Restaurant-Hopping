@@ -88,18 +88,17 @@ function fetchPlaces() {
 
     const places = new google.maps.places.PlacesService(map);
 
-    // TODO: cache nearby searches
+    // cache nearby searches
     let restaurantsCache;
 
     places.nearbySearch(
-      {bounds: map.getBounds(), openNow: true, types: ['bar', 'restaurant', 'point_of_interest']},
+      {bounds: map.getBounds(), openNow: true, types: ['food', 'restaurant']},
       function(results, status) {
         console.log(status);
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           restaurantsCache = results.filter(res => res);
-          console.log('Got these:', restaurantsCache);
           const places = tsp(
-            results.slice(0, TSP_LIMIT).map(result => {
+            restaurantsCache.slice(0, TSP_LIMIT).map(result => {
               return {
                 id: result.place_id,
                 latitude: result.geometry.location.lat(),
@@ -109,7 +108,6 @@ function fetchPlaces() {
               };
             }),
           );
-
           dispatch({
             type: 'RECEIVE_PLACES',
             places,

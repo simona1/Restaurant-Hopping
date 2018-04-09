@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {connect} from 'react-redux';
 
 type Props = {};
@@ -8,9 +9,9 @@ class PlacesList extends React.Component<Props> {
     // TODO: show something interesting when there are no places yet
 
     return (
-      <ul>
-        {this.props.places.map(place => <li key={place.id}>{place.name}</li>)}
-      </ul>
+      <ol type='A'>
+        {this.props.places.map(place => <li key={place.id}>{place.name} {place.rating}</li>)}
+      </ol>
     );
   }
 }
@@ -21,4 +22,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(PlacesList);
-

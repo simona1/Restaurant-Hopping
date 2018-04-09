@@ -1,3 +1,5 @@
+// @flow
+
 import Geo from './Geo';
 import React from 'react';
 import ReactDOM from 'react-dom';

@@ -35,4 +35,3 @@ function tsp(arr) {
 }
 
 export default tsp;
-

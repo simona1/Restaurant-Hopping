@@ -4,4 +4,3 @@ export default function(locationQuery = '', action) {
   }
   return locationQuery;
 }
-
