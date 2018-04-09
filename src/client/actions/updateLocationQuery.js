@@ -1,3 +1,4 @@
+/*global google*/
 import googlePlacesService from 'google-places-autocomplete-service';
 import tsp from '../tsp';
 
@@ -13,7 +14,6 @@ const Places = new googlePlacesService({
 const predictionsCache = {};
 function getPredictionsHelper(query, callback) {
   if (predictionsCache.hasOwnProperty(query)) {
-    console.log('skipping API query!');
     setTimeout(() => callback(predictionsCache[query]), 0);
   }
 
@@ -41,6 +41,7 @@ function predictPlace(query) {
           dispatch(fetchCoordinates(placeID));
           return true;
         }
+        return false;
       });
     });
   };
@@ -49,7 +50,6 @@ function predictPlace(query) {
 const placeCache = {};
 function getPlaceHelper(placeId, callback) {
   if (placeCache.hasOwnProperty(placeId)) {
-    console.log('skipping API query!');
     setTimeout(() => callback(placeCache[placeId]), 0);
   }
 
@@ -83,9 +83,7 @@ function fetchCoordinates(placeId) {
 
 function fetchPlaces() {
   return function(dispatch, getState) {
-    const {coordinates, map} = getState();
-    const {latitude, longitude} = coordinates;
-
+    const {map} = getState();
     const places = new google.maps.places.PlacesService(map);
 
     // cache nearby searches
@@ -94,7 +92,6 @@ function fetchPlaces() {
     places.nearbySearch(
       {bounds: map.getBounds(), openNow: true, types: ['bar', 'restaurant']},
       function(results, status) {
-        console.log(status);
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           restaurantsCache = results.filter(res => res);
           const places = tsp(

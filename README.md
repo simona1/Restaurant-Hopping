@@ -29,4 +29,6 @@ Test with `yarn run test`.
 
 `//TODO: add flow`
 
+`//TODO: debouncing`
+
 `//TODO: deploy on heroku`

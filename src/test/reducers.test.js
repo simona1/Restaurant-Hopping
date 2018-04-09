@@ -1,4 +1,3 @@
-import locationQueryReducer from '../client/reducers/locationName';
 import coordinatesReducer from '../client/reducers/coordinates';
 import rootReducer from '../client/reducers/root';
 import locationNameReducer from '../client/reducers/locationName';

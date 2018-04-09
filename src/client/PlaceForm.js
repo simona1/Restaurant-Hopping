@@ -1,11 +1,5 @@
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
-
 import React from 'react';
 import {connect} from 'react-redux';
-import GOOGLE_API_KEY from '../../api_key';
 import updateLocationQuery from './actions/updateLocationQuery';
 
 export class PlaceForm extends React.Component<Props> {

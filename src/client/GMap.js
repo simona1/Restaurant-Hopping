@@ -1,8 +1,7 @@
+/*global google*/
 import React from 'react';
 import {Map, Marker, Polyline} from 'google-maps-react';
-import GOOGLE_API_KEY from '../../api_key';
 import {connect} from 'react-redux';
-import store from './Store';
 import mapLoaded from './actions/mapLoaded';
 
 const ZOOM = 14;
@@ -16,9 +15,6 @@ class GMap extends React.Component {
       // The coordinates didn't change, nothing to do.
       return;
     }
-
-    console.log('zooming');
-
     this._map && this._map.setZoom(ZOOM);
   }
 
@@ -50,8 +46,11 @@ class GMap extends React.Component {
         {places.length > 0 && (
           <Polyline
             key={
-              // There is a bug in the implementation of polyline with responding
-              // to prop updates, this is a hack that forces unmounting/remounting.
+              /*
+                 There is a bug in the implementation of polyline
+                 with responding to prop updates, this is a hack
+                 that forces unmounting/remounting.
+               */
               JSON.stringify(path)
             }
             path={path}

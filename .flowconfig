@@ -9,5 +9,6 @@ node_modules/
 [lints]
 
 [options]
+include_warnings=false
 
 [strict]
