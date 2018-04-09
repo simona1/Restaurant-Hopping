@@ -10,6 +10,12 @@ h1 {
   font-size: 35px;
 }
 
+li {
+  text-align: left;
+  font-family: Fantasy;
+  font-size: 18px;
+}
+
 .input-field .prefix {
   align: center;
 }
@@ -19,6 +25,13 @@ h1 {
 }
 
 #map {
-  height: 100%;
-  width: 440px;
+  height: 400px;
+  width: 100px;
  }
+
+.item-rating {
+  color: blue;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+}

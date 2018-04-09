@@ -3,7 +3,7 @@ export default function fetchPlaces(lat, lng) {
   return function(dispatch) {
     const request = {
       location: {lat, lng},
-      radius: '500',
+      radius: '200',
       type: ['restaurant'],
     };
 

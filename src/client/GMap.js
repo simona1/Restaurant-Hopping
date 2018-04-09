@@ -55,9 +55,9 @@ class GMap extends React.Component {
               JSON.stringify(path)
             }
             path={path}
-            strokeColor="red"
+            strokeColor="blue"
             strokeOpacity={0.8}
-            strokeWeight={5}
+            strokeWeight={3}
           />
         )}
       </Map>
@@ -78,10 +78,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  GMap,
-  /*  GoogleApiWrapper({
-    apiKey: GOOGLE_API_KEY,
-    libraries: ['places'],
-  })(GMap),*/
-);
+export default connect(mapStateToProps, mapDispatchToProps)(GMap);

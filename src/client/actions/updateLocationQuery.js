@@ -92,7 +92,7 @@ function fetchPlaces() {
     let restaurantsCache;
 
     places.nearbySearch(
-      {bounds: map.getBounds(), openNow: true, types: ['food', 'restaurant']},
+      {bounds: map.getBounds(), openNow: true, types: ['bar', 'restaurant']},
       function(results, status) {
         console.log(status);
         if (status === google.maps.places.PlacesServiceStatus.OK) {

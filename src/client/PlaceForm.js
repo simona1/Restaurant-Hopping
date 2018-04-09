@@ -5,12 +5,10 @@ import PlacesAutocomplete, {
 
 import React from 'react';
 import {connect} from 'react-redux';
-
 import GOOGLE_API_KEY from '../../api_key';
-
 import updateLocationQuery from './actions/updateLocationQuery';
 
-class PlaceForm extends React.Component<Props> {
+export class PlaceForm extends React.Component<Props> {
   render() {
     return (
       <form className="input-field">
