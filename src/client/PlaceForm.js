@@ -5,16 +5,16 @@ import updateLocationQuery from './actions/updateLocationQuery';
 export class PlaceForm extends React.Component<Props> {
   render() {
     return (
-      <form className="input-field">
+      <div className="input-field">
         <i className="material-icons prefix">search</i>
         <input
           type="text"
           id="place"
-          placeholder="search for establishments nearby"
+          placeholder="type city name"
           value={this.props.locationQuery}
           onChange={this._handleLocationQueryChange}
         />
-      </form>
+      </div>
     );
   }
 

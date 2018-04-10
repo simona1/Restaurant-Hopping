@@ -1,6 +1,7 @@
 /*global google*/
 import googlePlacesService from 'google-places-autocomplete-service';
 import tsp from '../tsp';
+import {debounce} from 'lodash';
 
 const TSP_LIMIT = 5;
 
@@ -27,24 +28,25 @@ function getPredictionsHelper(query, callback) {
   );
 }
 
-function predictPlace(query) {
-  return function(dispatch) {
-    if (query === '') {
-      // Nothing to predict...
-      return;
-    }
-
-    getPredictionsHelper(query, results => {
-      Object.entries(results).some(result => {
-        const [placeID, details] = result;
-        if (details.type === 'locality') {
-          dispatch(fetchCoordinates(placeID));
-          return true;
-        }
-        return false;
-      });
+const predictPlaceImplementation = debounce(function(dispatch, query) {
+  if (query === '') {
+    // Nothing to predict...
+    return;
+  }
+  getPredictionsHelper(query, results => {
+    Object.entries(results).some(result => {
+      const [placeID, details] = result;
+      if (details.type === 'locality') {
+        dispatch(fetchCoordinates(placeID));
+        return true;
+      }
+      return false;
     });
-  };
+  });
+}, 500);
+
+function predictPlace(query) {
+  return dispatch => predictPlaceImplementation(dispatch, query);
 }
 
 const placeCache = {};
@@ -52,7 +54,6 @@ function getPlaceHelper(placeId, callback) {
   if (placeCache.hasOwnProperty(placeId)) {
     setTimeout(() => callback(placeCache[placeId]), 0);
   }
-
   Places.getPlace(
     {
       placeId,
