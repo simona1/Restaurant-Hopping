@@ -21,12 +21,9 @@ and type your preferred location for restaurant hopping in the search text box t
 Test with `yarn run test`.
 
 #### TODOs
-`//TODO: add more tests`
-
-`//TODO: add loading indicator`
-
-`//TODO: add links`
-
-`//TODO: add flow`
-
-`//TODO: deploy on heroku`
+* add more tests
+* allow search by address
+* add loading indicator
+* add links
+* add flow
+* deploy
