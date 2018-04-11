@@ -10,19 +10,18 @@ export class PlacesList extends React.Component<Props> {
         {this.props.places.map(place => (
           <li key={place.id}>
             <p>{place.name}</p>
-            {this._renderRating(place.rating)}
+            {this._renderRating(place.rating, place.id)}
           </li>
         ))}
       </ol>
     );
   }
 
-  _renderRating(rating) {
+  _renderRating(rating, id) {
     const stars = [];
     for (let i = 0; i < rating; ++i) {
-      let key = i;
       stars.push(
-        <i key={key} className="material-icons md-icon dp18">
+        <i key={`${id}-${i}`} className="material-icons md-icon dp18">
           grade
         </i>,
       );
