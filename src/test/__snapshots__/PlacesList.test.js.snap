@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlacesList should render a <PlaceList /> 1`] = `
+<ol
+  type="A"
+>
+  <li
+    key="ChIJZ5XfV10GhYARDh2gyITiZGw"
+  >
+    <p>
+      Cadet Wine & Beer Bar
+    </p>
+    <span
+      className="item-rating"
+      style={
+        Object {
+          "width": "108px",
+        }
+      }
+    >
+      <i
+        className="material-icons md-icon dp18"
+        key="0"
+      >
+        grade
+      </i>
+      <i
+        className="material-icons md-icon dp18"
+        key="1"
+      >
+        grade
+      </i>
+      <i
+        className="material-icons md-icon dp18"
+        key="2"
+      >
+        grade
+      </i>
+      <i
+        className="material-icons md-icon dp18"
+        key="3"
+      >
+        grade
+      </i>
+      <i
+        className="material-icons md-icon dp18"
+        key="4"
+      >
+        grade
+      </i>
+    </span>
+  </li>
+</ol>
+`;

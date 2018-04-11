@@ -1,7 +1,7 @@
 /*global google*/
 import googlePlacesService from 'google-places-autocomplete-service';
 import tsp from '../tsp';
-import {debounce} from 'lodash';
+import {debounce, memoize} from 'lodash';
 
 const TSP_LIMIT = 5;
 
@@ -14,19 +14,23 @@ const Places = new googlePlacesService({
 
 const predictionsCache = {};
 function getPredictionsHelper(query, callback) {
-  if (predictionsCache.hasOwnProperty(query)) {
-    setTimeout(() => callback(predictionsCache[query]), 0);
-  }
-
-  Places.getPredictions(
-    query,
-    results => {
-      predictionsCache[query] = results;
-      callback(results);
-    },
-    new RegExp('//'),
-  );
+  promisePlacePredictions(query).then(callback);
 }
+
+const promisePlacePredictions = memoize(function(query) {
+  if (!predictionsCache.hasOwnProperty(query)) {
+    predictionsCache[query] = new Promise((resolve, reject) => {
+      Places.getPredictions(
+        query,
+        results => {
+          resolve(results);
+        },
+        new RegExp('//'),
+      );
+    });
+  }
+  return predictionsCache[query];
+});
 
 const predictPlaceImplementation = debounce(function(dispatch, query) {
   if (query === '') {
@@ -50,19 +54,24 @@ function predictPlace(query) {
 }
 
 const placeCache = {};
-function getPlaceHelper(placeId, callback) {
-  if (placeCache.hasOwnProperty(placeId)) {
-    setTimeout(() => callback(placeCache[placeId]), 0);
+const promiseGetPlace = memoize(function(placeId) {
+  if (!placeCache.hasOwnProperty(placeId)) {
+    placeCache[placeId] = new Promise((resolve, reject) => {
+      Places.getPlace(
+        {
+          placeId,
+        },
+        result => {
+          resolve(result);
+        },
+      );
+    });
   }
-  Places.getPlace(
-    {
-      placeId,
-    },
-    result => {
-      placeCache[placeId] = result;
-      callback(result);
-    },
-  );
+  return placeCache[placeId];
+});
+
+function getPlaceHelper(placeId, callback) {
+  promiseGetPlace(placeId).then(callback);
 }
 
 function fetchCoordinates(placeId) {
@@ -86,10 +95,8 @@ function fetchPlaces() {
   return function(dispatch, getState) {
     const {map} = getState();
     const places = new google.maps.places.PlacesService(map);
-
     // cache nearby searches
     let restaurantsCache;
-
     places.nearbySearch(
       {bounds: map.getBounds(), openNow: true, types: ['bar', 'restaurant']},
       function(results, status) {
