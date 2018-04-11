@@ -20,31 +20,31 @@ exports[`PlacesList should render a <PlaceList /> 1`] = `
     >
       <i
         className="material-icons md-icon dp18"
-        key="0"
+        key="ChIJZ5XfV10GhYARDh2gyITiZGw-0"
       >
         grade
       </i>
       <i
         className="material-icons md-icon dp18"
-        key="1"
+        key="ChIJZ5XfV10GhYARDh2gyITiZGw-1"
       >
         grade
       </i>
       <i
         className="material-icons md-icon dp18"
-        key="2"
+        key="ChIJZ5XfV10GhYARDh2gyITiZGw-2"
       >
         grade
       </i>
       <i
         className="material-icons md-icon dp18"
-        key="3"
+        key="ChIJZ5XfV10GhYARDh2gyITiZGw-3"
       >
         grade
       </i>
       <i
         className="material-icons md-icon dp18"
-        key="4"
+        key="ChIJZ5XfV10GhYARDh2gyITiZGw-4"
       >
         grade
       </i>

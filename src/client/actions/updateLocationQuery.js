@@ -12,24 +12,20 @@ const Places = new googlePlacesService({
   searchStrategies: ['searchByPlaceId'],
 });
 
-const predictionsCache = {};
 function getPredictionsHelper(query, callback) {
   promisePlacePredictions(query).then(callback);
 }
 
 const promisePlacePredictions = memoize(function(query) {
-  if (!predictionsCache.hasOwnProperty(query)) {
-    predictionsCache[query] = new Promise((resolve, reject) => {
-      Places.getPredictions(
-        query,
-        results => {
-          resolve(results);
-        },
-        new RegExp('//'),
-      );
-    });
-  }
-  return predictionsCache[query];
+  return new Promise((resolve, reject) => {
+    Places.getPredictions(
+      query,
+      results => {
+        resolve(results);
+      },
+      new RegExp('//'),
+    );
+  });
 });
 
 const predictPlaceImplementation = debounce(function(dispatch, query) {
@@ -53,21 +49,17 @@ function predictPlace(query) {
   return dispatch => predictPlaceImplementation(dispatch, query);
 }
 
-const placeCache = {};
 const promiseGetPlace = memoize(function(placeId) {
-  if (!placeCache.hasOwnProperty(placeId)) {
-    placeCache[placeId] = new Promise((resolve, reject) => {
-      Places.getPlace(
-        {
-          placeId,
-        },
-        result => {
-          resolve(result);
-        },
-      );
-    });
-  }
-  return placeCache[placeId];
+  return new Promise((resolve, reject) => {
+    Places.getPlace(
+      {
+        placeId,
+      },
+      result => {
+        resolve(result);
+      },
+    );
+  });
 });
 
 function getPlaceHelper(placeId, callback) {
@@ -91,35 +83,48 @@ function fetchCoordinates(placeId) {
   };
 }
 
-function fetchPlaces() {
-  return function(dispatch, getState) {
-    const {map} = getState();
-    const places = new google.maps.places.PlacesService(map);
-    // cache nearby searches
-    let restaurantsCache;
+function runTSP(restaurantsCache) {
+  const places = tsp(
+    restaurantsCache.slice(0, TSP_LIMIT).map(result => {
+      return {
+        id: result.place_id,
+        latitude: result.geometry.location.lat(),
+        longitude: result.geometry.location.lng(),
+        name: result.name,
+        rating: result.rating,
+      };
+    }),
+  );
+  return places;
+}
+
+// TODO: reaserch how to properly memoize it
+const promiseFetchPlaces = function(map, callback) {
+  const places = new google.maps.places.PlacesService(map);
+  return new Promise((resolve, reject) => {
     places.nearbySearch(
       {bounds: map.getBounds(), openNow: true, types: ['bar', 'restaurant']},
       function(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          restaurantsCache = results.filter(res => res);
-          const places = tsp(
-            restaurantsCache.slice(0, TSP_LIMIT).map(result => {
-              return {
-                id: result.place_id,
-                latitude: result.geometry.location.lat(),
-                longitude: result.geometry.location.lng(),
-                name: result.name,
-                rating: result.rating,
-              };
-            }),
-          );
-          dispatch({
-            type: 'RECEIVE_PLACES',
-            places,
-          });
+          resolve(results);
         }
       },
     );
+  });
+};
+
+function fetchPlaces() {
+  let restaurantsCache;
+  return function(dispatch, getState) {
+    const {map} = getState();
+    promiseFetchPlaces(map).then(results => {
+      restaurantsCache = results.filter(res => res);
+      const places = runTSP(restaurantsCache);
+      dispatch({
+        type: 'RECEIVE_PLACES',
+        places,
+      });
+    });
   };
 }
 
@@ -129,7 +134,6 @@ export default function updateLocationQuery(locationQuery) {
       type: 'UPDATE_LOCATION_QUERY',
       locationQuery,
     });
-
     dispatch(predictPlace(locationQuery));
   };
 }
