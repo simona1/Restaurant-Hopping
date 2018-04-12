@@ -99,11 +99,11 @@ function runTSP(restaurantsCache) {
 }
 
 // TODO: reaserch how to properly memoize it
-const promiseFetchPlaces = function(map, callback) {
-  const places = new google.maps.places.PlacesService(map);
+let placesService;
+const promiseFetchPlaces = memoize(function(mapBounds) {
   return new Promise((resolve, reject) => {
-    places.nearbySearch(
-      {bounds: map.getBounds(), openNow: true, types: ['bar', 'restaurant']},
+    placesService.nearbySearch(
+      {bounds: mapBounds, openNow: true, types: ['bar', 'restaurant']},
       function(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           resolve(results);
@@ -111,13 +111,16 @@ const promiseFetchPlaces = function(map, callback) {
       },
     );
   });
-};
+});
 
 function fetchPlaces() {
   let restaurantsCache;
   return function(dispatch, getState) {
     const {map} = getState();
-    promiseFetchPlaces(map).then(results => {
+    placesService = new google.maps.places.PlacesService(map);
+    const mapBounds = map.getBounds();
+
+    promiseFetchPlaces(mapBounds).then(results => {
       restaurantsCache = results.filter(res => res);
       const places = runTSP(restaurantsCache);
       dispatch({
