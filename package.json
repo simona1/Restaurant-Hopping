@@ -2,7 +2,7 @@
   "name": "restaurants",
   "version": "1.0.0",
   "dependencies": {
-    "babel-core": "6.26.0",
+    "babel-core": "^6.26.0",
     "babel-loader": "7.1.4",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
@@ -59,6 +59,7 @@
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-eslint": "8.2.2",
+    "babel-jest": "^22.4.3",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
     "enzyme-to-json": "3.3.3",
@@ -73,6 +74,7 @@
     "googlemaps-js-api-stub": "^0.1.0",
     "jest": "22.4.3",
     "prettier": "1.11.1",
-    "react-test-renderer": "16.3.0"
+    "react-test-renderer": "16.3.0",
+    "regenerator-runtime": "^0.11.1"
   }
 }

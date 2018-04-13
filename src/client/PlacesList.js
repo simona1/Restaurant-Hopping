@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Rating from './Rating';
 type Props = {};
 
 export class PlacesList extends React.Component<Props> {
@@ -10,28 +11,10 @@ export class PlacesList extends React.Component<Props> {
         {this.props.places.map(place => (
           <li key={place.id}>
             <p>{place.name}</p>
-            {this._renderRating(place.rating, place.id)}
+            <Rating rating={place.rating} id={place.id} />
           </li>
         ))}
       </ol>
-    );
-  }
-
-  _renderRating(rating, id) {
-    const stars = [];
-    for (let i = 0; i < rating; ++i) {
-      stars.push(
-        <i key={`${id}-${i}`} className="material-icons md-icon dp18">
-          grade
-        </i>,
-      );
-    }
-    return (
-      <span
-        className="item-rating"
-        style={{width: Math.floor(24 * rating) + 'px'}}>
-        {stars}
-      </span>
     );
   }
 }

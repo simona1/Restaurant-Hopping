@@ -15,6 +15,7 @@ Run:
 4. `yarn install`
 5. `yarn run build`
 6. `yarn run server`
+Note: Skip steps 1-3 to run the app locally outside the Vagrant container.
 
 In the browser, go to `//localhost:5000`
 and type your preferred location for restaurant hopping in the search text box to see the recommended `open now` restaurants, their ratings and the shortest path itinerary.

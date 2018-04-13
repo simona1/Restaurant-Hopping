@@ -10,45 +10,10 @@ exports[`PlacesList should render a <PlaceList /> 1`] = `
     <p>
       Cadet Wine & Beer Bar
     </p>
-    <span
-      className="item-rating"
-      style={
-        Object {
-          "width": "108px",
-        }
-      }
-    >
-      <i
-        className="material-icons md-icon dp18"
-        key="ChIJZ5XfV10GhYARDh2gyITiZGw-0"
-      >
-        grade
-      </i>
-      <i
-        className="material-icons md-icon dp18"
-        key="ChIJZ5XfV10GhYARDh2gyITiZGw-1"
-      >
-        grade
-      </i>
-      <i
-        className="material-icons md-icon dp18"
-        key="ChIJZ5XfV10GhYARDh2gyITiZGw-2"
-      >
-        grade
-      </i>
-      <i
-        className="material-icons md-icon dp18"
-        key="ChIJZ5XfV10GhYARDh2gyITiZGw-3"
-      >
-        grade
-      </i>
-      <i
-        className="material-icons md-icon dp18"
-        key="ChIJZ5XfV10GhYARDh2gyITiZGw-4"
-      >
-        grade
-      </i>
-    </span>
+    <Rating
+      id="ChIJZ5XfV10GhYARDh2gyITiZGw"
+      rating={4.5}
+    />
   </li>
 </ol>
 `;
