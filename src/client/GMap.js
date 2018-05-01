@@ -45,14 +45,7 @@ class GMap extends React.Component {
         ))}
         {places.length > 0 && (
           <Polyline
-            key={
-              /*
-                 There is a bug in the implementation of polyline
-                 with responding to prop updates, this is a hack
-                 that forces unmounting/remounting.
-               */
-              JSON.stringify(path)
-            }
+            key={path}
             path={path}
             strokeColor="blue"
             strokeOpacity={0.8}
